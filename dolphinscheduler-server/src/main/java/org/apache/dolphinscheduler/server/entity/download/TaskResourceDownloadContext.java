@@ -18,7 +18,6 @@ package org.apache.dolphinscheduler.server.entity.download;
 
 import org.apache.dolphinscheduler.common.enums.ResourceType;
 import org.apache.dolphinscheduler.dao.entity.Resource;
-import org.apache.dolphinscheduler.dao.entity.TssResource;
 
 import java.util.Date;
 
@@ -70,11 +69,11 @@ public class TaskResourceDownloadContext {
     public TaskResourceDownloadContext() {
     }
 
-    public TaskResourceDownloadContext(Resource resource, boolean isTssTask) {
+    public TaskResourceDownloadContext(Resource resource) {
         this.resourceType = resource.getType();
         this.referredType = ResourceReferredType.NORMAL;
         this.id = resource.getId();
-        this.name = isTssTask ? TssResource.buildDownloadName(resource.getFullName()) : resource.getFullName();
+        this.name = resource.getFullName();
         this.fullName = resource.getFullName();
         int last = resource.getFullName().lastIndexOf('/');
         this.pDirRelativePath = (last > 0) ? resource.getFullName().substring(0, last) : "";

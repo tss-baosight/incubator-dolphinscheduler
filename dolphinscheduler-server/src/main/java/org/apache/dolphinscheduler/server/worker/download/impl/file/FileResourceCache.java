@@ -16,7 +16,6 @@
  */
 package org.apache.dolphinscheduler.server.worker.download.impl.file;
 
-import org.apache.dolphinscheduler.common.utils.CompressFileUtils;
 import org.apache.dolphinscheduler.common.utils.FileUtils;
 import org.apache.dolphinscheduler.common.utils.OSUtils;
 import org.apache.dolphinscheduler.server.entity.download.TaskResourceDownloadContext;
@@ -66,14 +65,6 @@ public class FileResourceCache extends AbstractResourceCache {
     public void cacheByDownloadedResource(TaskResourceDownloadContext downloadContext, Logger logger) {
         String readyDir = getResourceDownloadDir(downloadContext);
         String cacheDir = getCacheDir(downloadContext);
-        if (downloadContext.getFullName().endsWith(".zip")) {
-            readyDir = getResourceUnpackBaseDir(downloadContext);
-            String downloadPath = getResourceDownloadPath(downloadContext);
-            String unpackDir = readyDir + downloadContext.getpDirRelativePath();
-            // unpack
-            logger.info("unpack [{}] to [{}]", downloadPath, unpackDir);
-            CompressFileUtils.decompressZip(downloadPath, unpackDir);
-        }
 
         logger.info("rename [{}] to [{}]", readyDir, cacheDir);
         FileUtils.renameDir(readyDir, cacheDir);

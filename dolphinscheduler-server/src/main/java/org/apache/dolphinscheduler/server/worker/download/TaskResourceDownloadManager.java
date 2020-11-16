@@ -18,7 +18,6 @@ package org.apache.dolphinscheduler.server.worker.download;
 
 import org.apache.dolphinscheduler.server.entity.download.TaskResourceDownloadContext;
 import org.apache.dolphinscheduler.server.worker.download.impl.file.FileResourceCache;
-import org.apache.dolphinscheduler.server.worker.download.impl.file.TaskTemplateResourceCache;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -96,8 +95,6 @@ public class TaskResourceDownloadManager {
                 switch (downloadContext.getReferredType()) {
                     case NORMAL:
                         return new FileResourceCache();
-                    case TASK_TEMPLATE:
-                        return new TaskTemplateResourceCache();
                     default:
                         throw new RuntimeException(String.format("download not support referred type: %s", downloadContext.getResourceType()));
                 }
